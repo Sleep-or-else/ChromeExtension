@@ -7,7 +7,6 @@ chrome.runtime.setUninstallURL(uninstallURL)
 chrome.runtime.onMessage.addListener((data, sender, sendResponse) => {
   const sendRes = (res: any) => {
     sendResponse(res)
-    console.log("Response sent!")
   }
   switch (data.command || "") {
     case "add-website": {
@@ -25,11 +24,10 @@ chrome.runtime.onMessage.addListener((data, sender, sendResponse) => {
   return true
 });
 
-chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
   if (changeInfo.url || changeInfo.status == "loading") {
     const tab = await chrome.tabs.get(tabId)
-    const accessAction = (await canAccess(tab.url)).toLowerCase()
-    console.log(accessAction)
+    const accessAction = (await canAccess(tab.url, tab.title || "")).toLowerCase()
     switch (accessAction) {
       case "allow":
         break;

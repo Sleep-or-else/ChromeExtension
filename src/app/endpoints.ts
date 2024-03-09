@@ -42,11 +42,11 @@ export async function addWebsite(website: string) {
 
 export type AccessAction = "ALLOW" | "BLOCK" | "CLOSE"
 
-export async function canAccess(website: string): Promise<AccessAction> {
+export async function canAccess(website: string, tabTitle: string): Promise<AccessAction> {
   return fetch(endpoint("/can-access"), {
     method: "POST",
     headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({website})
+    body: JSON.stringify({website, tabTitle})
   })
     .then(v => v.json())
     .then(v => v.action)

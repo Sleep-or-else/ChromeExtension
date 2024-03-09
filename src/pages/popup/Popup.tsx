@@ -11,7 +11,6 @@ import Pg from "@src/components/typography/Pg";
 
 export function PopupPage() {
   const [accessType] = createResource(getWebsitesAccessType, {initialValue: "Add"})
-  const [currentTab] = createResource(getCurrentTab)
   const [error, setError] = createSignal(false)
 
   async function addWebsite() {
@@ -28,8 +27,7 @@ export function PopupPage() {
     chrome.runtime.sendMessage({
         command: "open-app"
       }, ({success}: { success: boolean }) => {
-        console.log("Open app success", success)
-      setError(!success)
+        setError(!success)
       }
     );
   }

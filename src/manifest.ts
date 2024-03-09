@@ -8,14 +8,10 @@ const manifest = defineManifest(async () => ({
   name: packageJson.displayName ?? packageJson.name,
   version: packageJson.version,
   description: packageJson.description,
-  // options_page: "src/pages/options/index.html",
   permissions: [
     "nativeMessaging",
     "webRequest",
-    "tabs",
     "activeTab",
-    "declarativeNetRequest",
-    "notifications"
   ],
   background: {
     service_worker: "src/pages/background/index.ts"
@@ -36,7 +32,6 @@ const manifest = defineManifest(async () => ({
       js: ["src/pages/content/index.tsx"],
     },
   ],
-  // devtools_page: "src/pages/devtools/index.html",
   web_accessible_resources: [
     {
       resources: ["assets/js/*.js", "assets/css/*.css", "assets/img/*"],
