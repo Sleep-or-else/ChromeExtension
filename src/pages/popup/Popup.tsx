@@ -5,7 +5,7 @@ import Header from "@src/components/typography/Header";
 import Button from "@src/components/input/Button";
 import Spacer from "@src/components/decoration/Spacer";
 import {createResource, createSignal, Show} from "solid-js";
-import {addWebsite, getWebsitesAccessType, openApp} from "@src/app";
+import {getWebsitesAccessType} from "@src/app";
 import {getCurrentTab} from "@src/util/extension_utils";
 import Pg from "@src/components/typography/Pg";
 
@@ -13,6 +13,26 @@ export function PopupPage() {
   const [accessType] = createResource(getWebsitesAccessType, {initialValue: "Add"})
   const [currentTab] = createResource(getCurrentTab)
   const [error, setError] = createSignal(false)
+
+  async function addWebsite() {
+    let tab = await getCurrentTab();
+    chrome.runtime.sendMessage({
+      command: "add-website",
+      website: tab.url
+    }, ({success}: { success: boolean }) => {
+      setError(!success)
+    });
+  }
+
+  function openApp() {
+    chrome.runtime.sendMessage({
+        command: "open-app"
+      }, ({success}: { success: boolean }) => {
+        console.log("Open app success", success)
+      setError(!success)
+      }
+    );
+  }
 
   return (
     <main class={"flex flex-col w-[300px] mx-auto my-auto"}>
@@ -22,25 +42,12 @@ export function PopupPage() {
         </Header>
         <Spacer class={"my-2"}/>
         <Button class={"w-40 my-4 p-2 text-base"} onClick={async () => {
-          const tab = currentTab()
-          if (tab) {
-            try {
-              await addWebsite(tab.url)
-              setError(false)
-            } catch (e) {
-              setError(true)
-            }
-          }
+          await addWebsite()
         }}>
           {accessType()} website
         </Button>
-        <Button class={"w-40 my-4 p-2 text-base"} onClick={async () => {
-          try {
-            await openApp()
-            setError(false)
-          } catch (e) {
-            setError(true)
-          }
+        <Button class={"w-40 my-4 p-2 text-base"} onClick={() => {
+          openApp()
         }}>
           Open app
         </Button>

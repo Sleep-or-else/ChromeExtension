@@ -14,7 +14,8 @@ const manifest = defineManifest(async () => ({
     "webRequest",
     "tabs",
     "activeTab",
-    "declarativeNetRequest"
+    "declarativeNetRequest",
+    "notifications"
   ],
   background: {
     service_worker: "src/pages/background/index.ts"
@@ -23,15 +24,18 @@ const manifest = defineManifest(async () => ({
     default_popup: "src/pages/popup/index.html",
     default_icon: "icons/34x34.png",
   },
+  host_permissions: [
+    "*://*/*", "https://*/*", `http://localhost:${PORT}/*`, "<all_urls>"
+  ],
   icons: {
     128: "icons/128x128.png",
   },
-  // content_scripts: [
-  //   {
-  //     matches: ["*://*/*", "https://*/*", `http://localhost:${PORT}/*`, "<all_urls>"],
-  //     js: ["src/pages/content/index.tsx"],
-  //   },
-  // ],
+  content_scripts: [
+    {
+      matches: ["*://*/*", "https://*/*", `http://localhost:${PORT}/*`, "<all_urls>"],
+      js: ["src/pages/content/index.tsx"],
+    },
+  ],
   // devtools_page: "src/pages/devtools/index.html",
   web_accessible_resources: [
     {
