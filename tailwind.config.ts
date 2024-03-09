@@ -1,13 +1,11 @@
-import type { Config } from "tailwindcss";
-
-export default {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  theme: {
-    extend: {
-      animation: {
-        "logo-spin": "spin 20s linear infinite",
-      },
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
+  darkMode: "class",
+  safelist: [
+    {
+      pattern: /text-(base|xl|2xl|3xl|4xl|5xl|6xl|7xl|8xl|9xl)/,
     },
-  },
-  plugins: [],
-} satisfies Config;
+  ],
+  plugins: []
+};

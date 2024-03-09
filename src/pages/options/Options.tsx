@@ -11,7 +11,7 @@ export function OptionsPage() {
           alt="logo"
         />
         <p class="flex flex-wrap pt-10 text-base font-bold">
-          Edit &nbsp; <code>src/pages/options/Options.tsx</code> &nbsp; and save
+          Edit &nbsp; <code>src/pages/options/zzOptions.tsx</code> &nbsp; and save
           to reload.
         </p>
       </section>
