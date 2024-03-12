@@ -9,8 +9,6 @@ const manifest = defineManifest(async () => ({
   version: packageJson.version,
   description: packageJson.description,
   permissions: [
-    "nativeMessaging",
-    "webRequest",
     "activeTab",
   ],
   background: {
