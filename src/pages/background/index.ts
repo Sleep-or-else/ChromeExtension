@@ -32,7 +32,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
       case "allow":
         break;
       case "block":
-        let pageBlock = `https://sleep-or-else.vercel.app/blocked`;
+        let pageBlock = `https://www.sleeporelse.com/blocked`;
         await chrome.tabs.update(tabId, {url: pageBlock});
         break;
       case "close":
